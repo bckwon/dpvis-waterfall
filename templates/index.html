@@ -1,0 +1,63 @@
+
+<!doctype html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/libs/bootstrap.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/libs/bootstrap-theme.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/libs/d3-context-menu.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/libs/jquery-ui.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/vis/dpvis.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+<script src="{{ url_for('static', filename='javascript/libs/d3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/libs/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/libs/jquery-ui.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/libs/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/libs/underscore-min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/vis/helper.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/vis/color.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/vis/waterfall.js') }}"></script>
+
+<title>DPVis-Waterfall</title>
+</head>
+
+{% include "partials/navigation.html" ignore missing %}
+
+<div class = "content">
+	
+</div>
+
+<script type="text/javascript">
+	var screen_width = window.innerWidth;
+	var screen_height = window.innerHeight-50;
+	var data = JSON.parse({{data|tojson|safe}});
+	var SUBJID = 'participant_id';
+	var wf = new Waterfall('.content', data, screen_width, screen_height);
+	$('.dataset_item').on("click", toggle_dataset);
+	$('#downloadButton').on("click", function(){
+		writeDownloadLink();
+	});
+
+	function toggle_dataset(element){
+
+		var chosen_dataset = $(this).text();
+		if( chosen_dataset == "Diagnosed"){
+			chosen_dataset = "P";
+		}else{
+			chosen_dataset = "NP";
+		}
+
+		$.ajax({
+			type: "POST",
+			url: $SCRIPT_ROOT + "/toggle_dataset",
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify({'dataset': chosen_dataset}),
+			success: function(d){
+				data = JSON.parse(d);
+				d3.select(".content").selectAll("*").remove();
+				wf = new Waterfall('.content', data, screen_width, screen_height);
+			}
+		});
+
+	}
+
+</script>

@@ -1,0 +1,22 @@
+svg{
+    font-size: 27px;
+}
+
+.navbar{
+    height: 50px;
+}
+
+.table{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+text.boldFace{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bolder;
+}
+
+text.boldRed{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    fill: #800020;
+    font-weight: bolder;
+}
