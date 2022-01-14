@@ -1,5 +1,4 @@
 __pycache__/
-static/data/*
 .idea/*
 .DS_Store
 runtime.txt
