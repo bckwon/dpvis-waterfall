@@ -5,6 +5,7 @@
 DPVis-Waterfall is a Flask application for presenting disease progression pathways. It visualizes sequences of hidden states, learned by Hidden Markov Models, over time on longitudinal observational data. 
 <br>
 We used the source code to visualize figures in the paper published by Nature Communications:
+
 <br>
 
 > [**Progression of type 1 diabetes from latency to symptomatic disease is predicted by distinct autoimmune trajectories**](https://www.nature.com/articles/s41467-022-28909-1),            
